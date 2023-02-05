@@ -6,7 +6,7 @@
 
 **Funcionalidad sencilla**
 - Cambio de color
-- Cambio del tamaño de trazo *Disponible todos los navegadores excepto Firefox, por cambio de funcionalidad*
+- Cambio del tamaño de trazo *Disponible todos los navegadores Firefox muestra un desplegable diferente*
 - Goma de borrar algun trazo concreto
 - Botón para reiniciar el juego
 
