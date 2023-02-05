@@ -3,9 +3,10 @@
 
 
 [Enlace](https://carlotamdez96.github.io/Pizarra/)
+
 **Funcionalidad sencilla**
 - Cambio de color
-- Cambio del tamaño de trazo
+- Cambio del tamaño de trazo *Disponible todos los navegadores excepto Firefox, por cambio de funcionalidad*
 - Goma de borrar algun trazo concreto
 - Botón para reiniciar el juego
 
