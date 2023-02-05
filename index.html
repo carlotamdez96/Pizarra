@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang=”es”>
+
+<head>
+    <meta charset=”utf-8″/>
+    <title>Dibujo con Canvas</title>
+    <script src="https://kit.fontawesome.com/daec488c78.js" crossorigin="anonymous"></script>
+    <style type="text/css">
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+        .contenedor{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+        }
+        #canvas {
+            margin-top: 50px;
+            margin-left: 50px;
+            border: 1px solid #000;
+            box-shadow: 2px 2px 10px #333;
+        }
+        .contenedor__herramientas{
+            display: flex;
+            flex-direction: column;
+            align-items:center;
+            gap: 20px;
+            cursor: pointer;
+        }
+        .pequeño{
+            font-size: .5em;
+        }
+        .triangulo{
+            font-size: 3em;
+        }
+        .cuadrado, .goma{
+            font-size: 2em;
+        }
+        .contenedorPrincipal{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap:15px;
+
+        }
+        .borrarTodo{
+            width: 100px;
+            cursor: pointer;
+
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="contenedorPrincipal">
+        <div class="contenedor">
+            <canvas id="canvas" width="600" height="500"></canvas>
+            <div class="contenedor__herramientas">
+                <span class="herramientas__grosor"><i class="pequeño fa-solid fa-circle"></i></span>
+                <span class="herramientas__grosor"><i class="gordo fa-solid fa-circle"></i></span>
+                <input type="color" class="herramientas__color"  value="black"/>
+                <span class="herramientas__goma"><i class="goma fa-solid fa-eraser"></i></span>
+            </div>
+            
+        </div>
+        <button class="borrarTodo">Borrar todo</button>
+    </div>
+    
+    
+    <script>
+        var comienzaTrazo = false;
+        lienzo = document.querySelector('canvas');
+        ctx = lienzo.getContext('2d');
+        var colorin="black";
+        var dibujartriangulo = false;
+        // Eventos de ratón a escuchar
+        document.addEventListener('mousedown', pulsaRaton);
+        document.addEventListener('mousemove', mueveRaton);
+        document.addEventListener('mouseup', levantaRaton);
+        const puntoP = document.querySelector(".pequeño").addEventListener("click",cambiatamañoP);
+        const puntoG = document.querySelector(".gordo").addEventListener("click",cambiatamañoG);
+        const goma = document.querySelector(".goma").addEventListener("click",borra);
+        const color = document.querySelector(".herramientas__color").addEventListener("input",cambiarColor);
+        const reinicia = document.querySelector(".borrarTodo").addEventListener("click",function(){
+            window.location.reload();
+        });
+        
+
+        function borra(){
+            colorin="white";
+        }
+        function cambiatamañoP(){
+            // colorin="black";
+            ctx.lineWidth=.5;
+        }
+        function cambiatamañoG(){
+            // colorin="black";
+            ctx.lineWidth=20;
+        }
+        function pulsaRaton(even) {
+            comienzaTrazo = true;
+           
+            //Indico que vamos a dibujar
+            ctx.beginPath();
+            // Obtenemos coordenadas X e Y del ratón y corregimos la distancia del canvas 
+            // ctx.moveTo(even.clientX - canvas.offsetLeft, even.clientY - canvas.offsetTop);
+            ctx.moveTo(even.offsetX, even.offsetY);
+        }
+
+        function cambiarColor(event) {
+            console.log(event.target.value);
+            colorin=event.target.value;
+                
+         
+            }
+
+        function mueveRaton(even) {
+            if (comienzaTrazo) {
+                // Establecemos color de linea y dibujamos
+                ctx.strokeStyle = colorin;
+                // ctx.strokeStyle = color;
+                // ctx.lineTo(even.clientX - canvas.offsetLeft, even.clientY - canvas.offsetTop);
+                ctx.lineTo(even.offsetX, even.offsetY);
+                ctx.stroke();
+            }
+        }
+
+        function levantaRaton() {
+            // Al soltar el botón del ratón finaliza el trazo a la espera del siguiente
+            ctx.closePath();
+            comienzaTrazo = false;
+        }
+    </script>
+</body>
+
+</html>
